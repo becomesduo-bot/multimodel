@@ -1,0 +1,9 @@
+langchain==0.3.19
+streamlit==1.31.1
+pdf2image
+pytesseract
+numpy<2
+faiss-cpu
+requests
+pillow
+langchain-text-splitters
