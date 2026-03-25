@@ -16,7 +16,7 @@ import numpy as np
 import faiss
 import requests
 
-# text extract
+
 
 def text_extract(pdf_path):
     """Text PDF extraction placeholder"""
@@ -32,7 +32,7 @@ def ocr_extract(pdf_path):
         full_text += f"\n\n--- Page {i+1} ---\n{page_text}"
     return full_text
 
-# chunks
+
 def chunk(text):
   splitter = CharacterTextSplitter(
     separator=" ",
@@ -42,7 +42,7 @@ def chunk(text):
   chunks = splitter.split_text(text)
   return chunks
 
-# embeddings
+
 
 def embedding(text, model="text-embedding-3-small"):
     url = "https://api.openai.com/v1/embeddings"
@@ -55,7 +55,7 @@ def embedding(text, model="text-embedding-3-small"):
     data = response.json()
     return np.array(data["data"][0]["embedding"], dtype=np.float32)
 
-# faiss
+
 
 def faiss_load(chunks, embeddings):
     dimension = embeddings[0].shape[0]
@@ -86,7 +86,7 @@ def retrive_k(query, index, chunk_mapping, k=3):
         except:
             pass
     return safe_chunks
-# prompt COMPLETION
+
 
 def build_prompt(context_chunks, query):
     if not context_chunks:
@@ -104,7 +104,7 @@ Question:
 """
     return prompt
 
-#COMPLETION
+
 def generate_completion(prompt, model="gpt-4.1-nano"):
     url = "https://api.euron.one/api/v1/euri/chat/completions"
     api_key=st.secrets["EURI_API_KEY"]
@@ -115,7 +115,7 @@ def generate_completion(prompt, model="gpt-4.1-nano"):
     data = response.json()
     return data['choices'][0]['message']['content']
 
-#STREAMLIT UI
+
 
 st.header("OCR + Text RAG")
 
